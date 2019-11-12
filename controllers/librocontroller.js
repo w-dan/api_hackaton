@@ -2,7 +2,7 @@
 const libro = require('../models/libro');
 
 function getlibro(req, res) {
-  User.find({}, (error, libro) => {
+  libro.find({}, (error, libro) => {
     if (error) { return res.status(500).send(error); }
 
     return res.status(200).send(libro);
@@ -43,7 +43,7 @@ function gelibrobyauthor(req, res) {
     const { ISBN } = req.params;
   
     libro.findById(ISBN, (error, libro) => {
-      if (!user) { return res.status(404).send({ message: 'Book not found' }); }
+      if (!libro) { return res.status(404).send({ message: 'Book not found' }); }
   
       return res.status(200).send(libro);
     });
@@ -116,7 +116,7 @@ function editlibro(req, res) {
 }
 
 function deletelibro(req, res) {
-  const { userId } = req.params;
+  const { libroId } = req.params;
 
   libro.findAndDelete(libroId, (error, libro) => {
     if (error) { return res.status(500).send(error); }

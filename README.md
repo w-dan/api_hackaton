@@ -1,6 +1,6 @@
-API SIN TERMINAR
+VERSIÓN NUEVA DE LA API
 
-Por problemas con la instalación de mongo, (sí, llevo como una semana con ello) y completar el hito anterior, esto es todo lo que he hecho.
+He terminado de hacer el código "a lo bestia", ya que por los problemas que me ha dado mongo no he podido testearla.
+Con mongo instalado iré probándola y poniéndome al día.
 
-Consta de modelos de usuario y de libros con sus respectivas características, y usercontroller.js lo he clonado de basic_API_Hackaton.
-Soy consciente de que faltan routes para el usuario y hay errores en el código.
+En este repo están los 3 hitos previos al de angular, es decir, la api básica, el modelo de los libros y el token.
