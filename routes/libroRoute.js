@@ -6,7 +6,7 @@ const Router = express.Router();
  
 // GET
 Router.get('/', librocontroller.getlibro);
-//Router.get('/id/:libroId', libroController.getlibroID); no sé si hace falta, en un principio no
+Router.get('/libroID/:libroId', libroController.getlibrobyID);
 Router.get('/title/:title', libroController.getlibrobytitle);
 outer.get('/description/:description', librocontroller.getlibrobydescription);
 Router.get('/author/:author', librocontroller.getlibrolibrobyauthor);

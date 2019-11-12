@@ -9,6 +9,16 @@ function getlibro(req, res) {
   });
 }
 
+function gelibrobyID(req, res) {
+  const { libroID } = req.params;
+
+  libro.findById(libroID, (error, libro) => {
+    if (!libro) { return res.status(404).send({ message: 'Book not found' }); }
+
+    return res.status(200).send(libro);
+  });
+}
+
 function gelibrobytitle(req, res) {
   const { title } = req.params;
 
@@ -128,6 +138,7 @@ function deletelibro(req, res) {
 
 module.exports = {
   getlibro,
+  getlibrobyID,
   gelibrobytitle,
   gelibrobydescription,
   gelibrobyauthor,
