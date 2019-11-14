@@ -1,6 +1,4 @@
 VERSIÓN NUEVA DE LA API
 
-He terminado de hacer el código "a lo bestia", ya que por los problemas que me ha dado mongo no he podido testearla.
-Con mongo instalado iré probándola y poniéndome al día.
-
-En este repo están los 3 hitos previos al de angular, es decir, la api básica, el modelo de los libros y el token.
+Ahora se ejecuta sin problemas, he actualizado los controladores por completo y he hecho pequeños cambios en el resto de archivos
+para hacer que el código se vea más limpio.

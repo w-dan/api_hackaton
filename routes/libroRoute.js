@@ -1,29 +1,27 @@
-const express = require('express');
-const bookController = require('../controllers/books.controller');
+const express = require('express')
+const bookscontroller = require('../controllers/books.controller')
  
-const Router = express.Router();
+const Router = express.Router()
  
  
 // GET
-Router.get('/', librocontroller.getlibro);
-Router.get('/libroID/:libroId', libroController.getlibrobyID);
-Router.get('/title/:title', libroController.getlibrobytitle);
-outer.get('/description/:description', librocontroller.getlibrobydescription);
-Router.get('/author/:author', librocontroller.getlibrolibrobyauthor);
-Router.get('/isbn/:isbn', librocontroller.getlibrobyISBN);
-Router.get('/price/:price', librocontroller.getlibrobyprice);
-Router.get('/publisher/:publisher', librocontroller.getlibrobypublisher);
+Router.get('/', bookscontroller.getLibro)
+Router.get('/libroID/:libroID', bookscontroller.getLibroByID)
+Router.get('/title/:title', bookscontroller.getLibroByTitle)
+Router.get('/description/:description', bookscontroller.getLibroByDescription)
+Router.get('/author/:author', bookscontroller.getLibroByAuthor)
+Router.get('/isbn/:isbn', bookscontroller.getLibroByISBN)
+Router.get('/price/:price', bookscontroller.getLibroByPrice)
+Router.get('/publisher/:publisher', bookscontroller.getLibroByPublisher)
  
-// POST
-Router.post('/', librocontroller.createlibro);
+// CREATE
+Router.post('/', bookscontroller.createLibro)
  
-// PUT
-Router.put('/:libroId', librocontroller.replacelibro);
- 
-// PATCH
-Router.patch('/:libroId', librocontroller.editlibro);
+// UPDATE
+Router.put('/:libroId', bookscontroller.replaceLibro)
+Router.put('/:libroId', bookscontroller.editLibro)
  
 // DELETE
-Router.delete('/:libroId', librocontroller.deletelibro);
+Router.delete('/:libroId', bookscontroller.deleteLibro)
  
-module.exports = Router;
+module.exports = Router

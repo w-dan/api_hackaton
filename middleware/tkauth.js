@@ -1,17 +1,17 @@
-const services = require('./service');
+const services = require('./service')
  
 function isAuth(req, res, next) {
-  if (!req.headers.authorization) { return res.status(403).send({ message: 'You are not authorized' }); }
+  if (!req.headers.authorization) return res.status(403).send({ message: 'You are not authorized' })
  
-  const token = req.headers.authorization;
+  const token = req.headers.authorization
  
   services.decodeToken(token)
     .then((response) => {
-      req.user = response;
-      next();
+      req.user = response
+      next()
     }).catch((response) => {
-      res.status(response.status);
-    });
+      res.status(response.status)
+    })
 }
  
-module.exports = isAuth;
+module.exports = isAuth
