@@ -80,6 +80,9 @@ function login(req, res) {
   const { mail } = req.params
   const { password } = req.body
 
+
+  // registrar aquí el token y lo añades a la respuesta de login 
+
   User.findOne({ mail }, (error, user) => {
     if (error) return res.status(404).send('User not found')
 
@@ -92,7 +95,6 @@ function login(req, res) {
 module.exports = {
   getUsers,
   getUserByID,
-
   createUser,
   replaceUser,
   editUser,

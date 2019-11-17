@@ -10,5 +10,7 @@ const UserSchema = new Schema({
   date: {type: { Date, default: Date.now() },},
 })
 
+UserSchema.pre('save') // mira lo que hace todo esto para usar bCrypt para encriptar la contraseña antes de guardar un usuario en bbddw
+
 const User = mongoose.model('user', UserSchema)
 module.exports = User
