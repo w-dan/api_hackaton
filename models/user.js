@@ -10,7 +10,27 @@ const UserSchema = new Schema({
   date: {type: { Date, default: Date.now() },},
 })
 
-UserSchema.pre('save') // mira lo que hace todo esto para usar bCrypt para encriptar la contraseña antes de guardar un usuario en bbddw
+UserSchema.pre('save', function (next) {
+  const user = this
 
-const User = mongoose.model('user', UserSchema)
-module.exports = User
+  if (!user.isModified('password')) return next()
+
+  bcrypt.genSalt(SALT_WORK_FACTOR, (error, salt) => {
+    if (error) return next(error)
+
+    bcrypt.hash(user.password, salt, (err, hash) => {
+      if (err) return next(err)
+
+      user.password = hash
+      next()
+    })
+  })
+})
+
+UserSchema.methods.comparePassword = function (candidateP, callback) {
+  bcrypt.compare(candidateP, this.password, (err, isMatch) => {
+    callback(err, isMatch)
+  })
+}
+
+module.exports = mongoose.model('user', UserSchema)

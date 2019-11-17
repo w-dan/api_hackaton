@@ -1,7 +1,7 @@
 
 const jwt = require('jwt-simple')
 const moment = require('moment')
-const config = require('./token-config')
+const config = require('./token.config')
 
 
 function createToken(user) {
