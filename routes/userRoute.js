@@ -1,24 +1,26 @@
-const express = require('express')
-const userController = require('../controllers/users.controller')
-const auth = require('../middleware/tokenAuth')
+/* eslint-disable linebreak-style */
+
+const express = require('express');
+const userController = require('../controllers/users.controller');
+const auth = require('../middleware/tokenAuth');
 
 const router = express.Router();
 
 // GET
-router.get('/', userController.getUsers)
-router.get('/:userId', userController.getUserByID)
+router.get('/', userController.getUsers);
+router.get('/:userId', userController.getUserByID);
 
 // POST
-router.post('/', userController.createUser)
-router.post('/:mail', userController.login)
+router.post('/', userController.createUser);
+router.post('/:mail', userController.login);
 
 // PUT
-router.put('/private/:userId', auth, userController.replaceUser)
+router.put('/private/:userId', auth, userController.replaceUser);
 
 // PATCH
-router.patch('/private/:userId', auth, userController.editUser)
+router.patch('/private/:userId', auth, userController.editUser);
 
 // DELETE
-router.delete('/private/:userId', auth, userController.deleteUser)
+router.delete('/private/:userId', auth, userController.deleteUser);
 
-module.exports = router
+module.exports = router;

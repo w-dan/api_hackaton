@@ -1,4 +1,4 @@
 module.exports = {
 
-    SECRET_TOKEN: 'soyelpibe',
-  }
+  SECRET_TOKEN: 'soyelpibe',
+};
