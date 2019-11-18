@@ -119,7 +119,18 @@ function replaceBook(req, res) {
   });
 }
 
-function deleteLibro(req, res) {
+function editBook(req, res) {
+  const { bookId } = req.params;
+
+  Book.findByIdAndUpdate(bookId, req.body, { new: true }, (err, libro) => {
+    if (!libro) { return res.status(404).send({ message: 'Book not found' }); }
+    if (err) { return res.status(500).send({ err }); }
+
+    return res.status(200).send(`Book updated successfully ${libro}`);
+  });
+}
+
+function deleteBook(req, res) {
   const { libroId } = req.params;
 
   Book.findAndDelete(libroId, (err, libro) => {
@@ -140,7 +151,8 @@ module.exports = {
   getLibroByPrice,
   getLibroByPublisher,
 
+  editBook,
   createBook,
   replaceBook,
-  deleteLibro,
+  deleteBook,
 };

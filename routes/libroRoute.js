@@ -14,13 +14,15 @@ Router.get('/price/:price', bookscontroller.getLibroByPrice);
 Router.get('/publisher/:publisher', bookscontroller.getLibroByPublisher);
 
 // CREATE
-Router.post('/', bookscontroller.createLibro);
+Router.post('/', bookscontroller.createBook);
 
-// UPDATE
-Router.put('/:libroId', bookscontroller.replaceLibro);
-Router.put('/:libroId', bookscontroller.editLibro);
+// REPLACE
+Router.put('/:libroId', bookscontroller.replaceBook);
+
+// PATCH
+Router.patch('/:libroId', bookscontroller.editBook);
 
 // DELETE
-Router.delete('/:libroId', bookscontroller.deleteLibro);
+Router.delete('/:libroId', bookscontroller.deleteBook);
 
 module.exports = Router;

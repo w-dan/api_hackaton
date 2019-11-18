@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const app = require('./app');
 
-const mongodb = process.env.MONGODB || 'mongodb://localhost:27017/apihackatron';
+const mongodb = process.env.MONGODB || 'mongodb://localhost:3000/apihackatron';
 const port = process.env.PORT || 3000;
 
 mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
