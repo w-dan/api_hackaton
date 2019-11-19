@@ -1,13 +1,23 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const userRoute = require('./routes/userRoute.js');
-const libroRoute = require('./routes/libroRoute.js');
+const userRoute = require('./routes/userRoute');
+const bookRoute = require('./routes/bookRoute');
 
 const app = express();
+
+// Configurar cabeceras y cors
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/user', userRoute);
-app.use('/libro', libroRoute);
+app.use('/book', bookRoute);
 
 module.exports = app;

@@ -1,93 +1,109 @@
 /* eslint-disable consistent-return */
+const Book = require('../models/book');
 
-const Book = require('../models/libro');
-
-const getLibro = (req, res) => {
-  Book.find({}, (err, books) => {
+function getBooks(req, res) {
+  Book.find({}, (err, book) => {
     if (err) return res.status(400).json({ msg: 'Book not found' });
 
-    return res.status(200).json({ libros: books });
+    return res.status(200).json({ book });
   });
-};
-const getLibroByID = (req, res) => {
-  const { libroID } = req.body;
+}
 
-  Book.find({ libroID }, (err, books) => {
-    if (err) return res.status(400).json({ msg: 'Book not found' });
+function getBookByID(req, res) {
+  const { bookId } = req.params;
 
-    return res.status(200).json({ libros: books });
+  Book.find({ bookId }, (error, book) => {
+    if (error) if (err) return res.status(400).json({ msg: 'Book not found' });
+
+    return res.status(200).json({ book });
   });
-};
+}
 
-const getLibroByTitle = (req, res) => {
-  const { titulo } = req.body;
+function getBookByTitle(req, res) {
+  const { title } = req.params;
 
-  Book.find({ titulo }, (err, books) => {
-    if (err) return res.status(400).json({ msg: 'book not found' });
+  Book.find({ title }, (err, book) => {
 
-    return res.status(200).json({ libros: books });
+    if (err) { return res.status(500).json({ msg: 'error' }); }
+    if (!book) { return res.status(404).json({ msg: 'Book not found' }); }
+    
+    return res.status(200).json({ book });
   });
-};
+}
 
-const getLibroByDescription = (req, res) => {
-  const { description } = req.body;
+function getBookByISBN(req, res) {
+  const { isbn } = req.params;
 
-  Book.find({ description }, (err, books) => {
-    if (err) return res.status(400).json({ msg: 'Book not found' });
+  Book.find({ isbn }, (err, book) => {
+    if (err) { return res.status(400).json({ msg: 'Book not found' }); }
+    if (!book) { return res.status(404).json({ msg: 'Book not found' }); }
 
-    return res.status(200).json({ libros: books });
+    return res.status(200).json({ book });
   });
-};
+}
 
-const getLibroByAuthor = (req, res) => {
-  const { author } = req.body;
+function getBookByDescription(req, res) {
+  const { description } = req.params;
 
-  Book.find({ author }, (err, books) => {
-    if (err) return res.status(400).json({ msg: 'Book not found' });
+  Book.find({ description }, (err, book) => {
+    if (err) { return res.status(500).json({ msg: 'error' }); }
+    if (!book) { return res.status(404).json({ msg: 'Book not found' }); }
 
-    return res.status(200).json({ libros: books });
+    return res.status(200).json({ book });
   });
-};
+}
 
-const getLibroByISBN = (req, res) => {
-  const { isbn } = req.body;
+function getBookByDate(req, res) {
+  const { date } = req.params;
 
-  Book.find({ isbn }, (err, books) => {
-    if (err) return res.status(400).json({ msg: 'Book not found' });
+  Book.find({ date }, (err, book) => {
+    if (err) { return res.status(500).json({ msg: 'error' }); }
+    if (!book) { return res.status(404).json({ msg: 'Book not found' }); }
 
-    return res.status(200).json({ libros: books });
+    return res.status(200).json({ book });
   });
-};
+}
 
-const getLibroByPrice = (req, res) => {
-  const { price } = req.body;
+function getBookByAuthor(req, res) {
+  const { author } = req.params;
 
-  Book.find({ price }, (err, books) => {
-    if (err) return res.status(400).json({ msg: 'Book not found' });
+  Book.find({ author }, (err, book) => {
+    if (err) { return res.status(500).json({ msg: 'error' }); }
+    if (!book) { return res.status(404).json({ msg: 'Book not found' }); }
 
-    return res.status(200).json({ libros: books });
+    return res.status(200).json({ book });
   });
-};
+}
 
-const getLibroByPublisher = (req, res) => {
-  const { publisher } = req.body;
+function getBookByPrice(req, res) {
+  const { price } = req.params;
 
-  Book.find({ publisher }, (err, books) => {
-    if (err) return res.status(400).json({ msg: 'Book not found' });
+  Book.find({ price }, (err, book) => {
+    if (err) { return res.status(500).json({ msg: 'error' }); }
+    if (!book) { return res.status(404).send({ message: 'Book not found' }); }
 
-    return res.status(200).json({ libros: books });
+    return res.status(200).json({ book });
   });
-};
+}
 
-// CRUD
+function getBookByPublishr(req, res) {
+  const { editorial } = req.params;
+
+  Book.find({ editorial }, (err, book) => {
+    if (err) { return res.status(500).json({ msg: 'error' }); }
+    if (!book) { return res.status(404).json({ msg: 'Book not found' }); }
+
+    return res.status(200).json({ book });
+  });
+}
 
 function createBook(req, res) {
   const book = new Book(req.body);
 
   Book.create(book, (err) => {
-    if (err) { return res.status(500).send({ message: `Error saving book ${err}` }); }
+    if (err) { return res.status(500).json({ msg: `Error saving book ${err}` }); }
 
-    return res.status(200).send({ message: 'Book added successfully' });
+    return res.status(200).json({ msg: 'Book added successfully' });
   });
 }
 
@@ -96,62 +112,63 @@ function replaceBook(req, res) {
   const { isbn } = req.body;
   const { description } = req.body;
   const { author } = req.body;
+  const { date } = req.body;
   const { price } = req.body;
   const { publisher } = req.body;
 
-  const { libroId } = req.params;
+  const { bookId } = req.params;
 
-  if (!title || !isbn || !description || !author || !price || !publisher) {
-    return res.status(400).send({ message: 'Missing parameters' });
+  if (!title || !isbn || !description || !author || !date || !price || !publisher) {
+    return res.status(400).json({ msg: 'Missing parameters' });
   }
 
   const bookReplacement = req.body;
 
-  Book.find({ libroId }, (err) => {
-    if (err) return res.status(404).send({ message: `Book not found ${err}` });
+  Book.find({ bookId }, (err) => {
+    if (err) return res.status(404).json({ msg: `Book not found ${err}` });
 
     Book.replaceOne(bookReplacement, (error) => {
-      if (error) return res.status(500).send({ error });
+      if (error) return res.status(500).json({ msg: 'error' });
 
-      return res.status(200).send({ message: 'Book replaced successfully' });
+      return res.status(200).json({ msg: 'Book replaced successfully' });
     });
   });
 }
 
 function editBook(req, res) {
-  const { libroId } = req.params;
+  const { bookId } = req.params;
 
-  Book.findByIdAndUpdate(libroId, req.body, { new: true }, (err, libro) => {
-    if (!libro) { return res.status(404).send({ message: 'Book not found' }); }
-    if (err) { return res.status(500).send({ err }); }
+  Book.findByIdAndUpdate(bookId, req.body, { new: true }, (err, book) => {
+    if (err) { return res.status(500).json({ msg: 'error' }); }
+    if (!book) { return res.status(404).json({ msg: 'Book not found' }); }
 
-    return res.status(200).send(`Book updated successfully ${libro}`);
+    return res.status(200).json({msg: `Book updated successfully ${book}`});
   });
 }
 
 function deleteBook(req, res) {
-  const { libroId } = req.params;
+  const { bookId } = req.params;
 
-  Book.findAndDelete(libroId, (err, libro) => {
-    if (err) return res.status(500).json({ msg: 'Error' });
-    if (!libro) { return res.status(404).send('Book not found'); }
+  Book.findOneAndDelete({ bookId }, (err, book) => {
+    if (err) { return res.status(500).send({ err }); }
+    if (!book) { return res.status(404).json({msg: 'Book not found' }); }
 
-    return res.status(200).json({ msg: `Book deleted succesfully ${libro}` });
+    return res.status(200).json( {msg: `Book updated successfully ${book}` });
   });
 }
 
 module.exports = {
-  getLibro,
-  getLibroByID,
-  getLibroByTitle,
-  getLibroByDescription,
-  getLibroByAuthor,
-  getLibroByISBN,
-  getLibroByPrice,
-  getLibroByPublisher,
-
-  editBook,
+  getBooks,
+  getBookByID,
+  getBookByAuthor,
+  getBookByDate,
+  getBookByDescription,
+  getBookByISBN,
+  getBookByPrice,
+  getBookByPublishr,
+  getBookByTitle,
   createBook,
   replaceBook,
+  editBook,
   deleteBook,
 };

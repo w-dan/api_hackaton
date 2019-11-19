@@ -1,8 +1,8 @@
-/* eslint-disable consistent-return */
 const services = require('./service');
 
-function tokenAuth(req, res, next) {
-  if (!req.headers.authorization) return res.status(403).send({ message: 'You are not authorized' });
+// eslint-disable-next-line consistent-return
+function isAuth(req, res, next) {
+  if (!req.headers.authorization) { return res.status(403).send({ message: 'You are not authorized' }); }
 
   const token = req.headers.authorization;
 
@@ -15,4 +15,4 @@ function tokenAuth(req, res, next) {
     });
 }
 
-module.exports = tokenAuth;
+module.exports = isAuth;

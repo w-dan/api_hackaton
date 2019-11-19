@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-
 const express = require('express');
 const userController = require('../controllers/users.controller');
 const auth = require('../middleware/tokenAuth');
