@@ -1,6 +1,9 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
+
+mongoose.set('useCreateIndex', true);
+
 const app = require('./app');
 
 const mongodb = process.env.MONGODB || 'mongodb://localhost:3000/apihackatron';

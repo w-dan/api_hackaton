@@ -96,19 +96,18 @@ function replaceBook(req, res) {
   const { isbn } = req.body;
   const { description } = req.body;
   const { author } = req.body;
-  const { date } = req.body;
   const { price } = req.body;
-  const { editorial } = req.body;
+  const { publisher } = req.body;
 
-  const { bookId } = req.params;
+  const { libroId } = req.params;
 
-  if (!title || !isbn || !description || !author || !date || !price || !editorial) {
+  if (!title || !isbn || !description || !author || !price || !publisher) {
     return res.status(400).send({ message: 'Missing parameters' });
   }
 
   const bookReplacement = req.body;
 
-  Book.find({ bookId }, (err) => {
+  Book.find({ libroId }, (err) => {
     if (err) return res.status(404).send({ message: `Book not found ${err}` });
 
     Book.replaceOne(bookReplacement, (error) => {
@@ -120,9 +119,9 @@ function replaceBook(req, res) {
 }
 
 function editBook(req, res) {
-  const { bookId } = req.params;
+  const { libroId } = req.params;
 
-  Book.findByIdAndUpdate(bookId, req.body, { new: true }, (err, libro) => {
+  Book.findByIdAndUpdate(libroId, req.body, { new: true }, (err, libro) => {
     if (!libro) { return res.status(404).send({ message: 'Book not found' }); }
     if (err) { return res.status(500).send({ err }); }
 
